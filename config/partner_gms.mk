@@ -23,6 +23,7 @@ ifeq ($(WITH_GMS),true)
             endif
         endif
    else
+        # Standard GMS (vendor/partner_gms)
         ifneq (,$(wildcard vendor/partner_gms))
             # Specify the GMS makefile you want to use, for example:
             #   - fi.mk             - Project Fi
@@ -35,6 +36,15 @@ ifeq ($(WITH_GMS),true)
                 $(call inherit-product, vendor/partner_gms/products/$(GMS_MAKEFILE))
             else
                 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+            endif
+        endif
+
+        # Project-PenguinOS GMS (vendor/gms)
+        ifneq (,$(wildcard vendor/gms))
+            ifneq ($(GMS_MAKEFILE),)
+                $(call inherit-product, vendor/gms/products/$(GMS_MAKEFILE))
+            else
+                $(call inherit-product-if-exists, vendor/gms/products/gms.mk)
             endif
         endif
 
